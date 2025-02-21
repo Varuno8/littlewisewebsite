@@ -9,11 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@clerk/nextjs": "^6.11.3",
-=======
     "@clerk/nextjs": "^6.12.0",
->>>>>>> e604b820c3c290638429900f55f40d0b4b5458d8
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
