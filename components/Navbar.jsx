@@ -47,7 +47,7 @@ const Navbar = () => {
         {user ? (
           <>
             {" "}
-            (
+            
             <UserButton>
               <UserButton />
               <UserButton.MenuItems>
@@ -89,7 +89,7 @@ const Navbar = () => {
         {user ? (
           <>
             {" "}
-            (
+            
             <UserButton>
               <UserButton />
               <UserButton.MenuItems>
