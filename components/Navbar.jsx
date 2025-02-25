@@ -44,11 +44,9 @@ const Navbar = () => {
 
       <ul className="hidden md:flex items-center gap-4 ">
         <Image className="w-4 h-4" src={assets.search_icon} alt="search icon" />
-        {user ? (
+        {user ?
           <>
-            {" "}
             <UserButton>
-              <UserButton />
               <UserButton.MenuItems>
                 <UserButton.Action
                   label="Cart"
@@ -65,7 +63,7 @@ const Navbar = () => {
               </UserButton.MenuItems>
             </UserButton>
           </>
-        ) : (
+         :
           <button
             onClick={openSignIn}
             className="flex items-center gap-2 hover:text-gray-900 transition"
@@ -73,7 +71,7 @@ const Navbar = () => {
             <Image src={assets.user_icon} alt="user icon" />
             Account
           </button>
-        )}
+        }
       </ul>
 
       <div className="flex items-center md:hidden gap-3">
@@ -87,9 +85,7 @@ const Navbar = () => {
         )}
         {user ? (
           <>
-            {" "}
             <UserButton>
-              <UserButton />
               <UserButton.MenuItems>
                 <UserButton.Action
                   label="Home"
