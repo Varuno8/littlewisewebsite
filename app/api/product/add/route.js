@@ -1,9 +1,9 @@
 import connectDB from "@/config/db";
 import authSeller from "@/lib/authSeller";
+import Product from "@/models/product";
 import { getAuth } from "@clerk/nextjs/server";
 import { v2 as cloudinary } from "cloudinary";
 import { NextResponse } from "next/server";
-
 // configure cloudinary
 
 cloudinary.config({
@@ -14,7 +14,7 @@ cloudinary.config({
 
 export async function POST(request) {
     try {
-        const { userId } = getAuth();
+        const { userId } = getAuth(request);
         const isSeller = await authSeller()
 
         if(!isSeller) {
@@ -27,7 +27,7 @@ export async function POST(request) {
         const description = formData.get('description');
         const category = formData.get('category');
         const price = formData.get('price');
-        const offerprice = formData.get('offerprice');
+        const offerPrice = formData.get('offerPrice');
 
         const files = formData.getAll('images');
 
@@ -59,18 +59,18 @@ export async function POST(request) {
         const image = result.map(result => result.secure_url)
 
         await connectDB();
-        const product = await Product.create({
+        const newProduct = await Product.create({
             userId,
             name,
             description,
             category,
             price:Number(price),
-            offerprice:Number(offerprice),
+            offerPrice:Number(offerPrice),
             image,
             date: Date.now()
         })
 
-        return NextResponse.json({ success: true, message: 'Upload successful', product })
+        return NextResponse.json({ success: true, message: 'Upload successful', newProduct })
         
     } catch (error) {
         return NextResponse.json({ success: false, message: error.message })
