@@ -21,12 +21,24 @@ export async function POST(request) {
             const product = await Product.findById(item.productId);
             return acc + (Product.offerPrice * item.quantity);
         }, 0)
-        await connectDB()
-        const user = await User.findById(userId)
+        await inngest.send({
+            name: 'order/created',
+            data: {
+                userId,
+                address,
+                items,
+                amount:amount+Math.floor(amount*0.02),//added 2% tax
+                date: Date.now() 
+                
+            }
+        })
 
-        const { cartItems } = user
+        //clear user cartData
+        const user = await User.findById(userId);
+        user.cartItems = {};
+        await user.save();
 
-        return NextResponse.json({ success: true, cartItems });
+        return NextResponse.json({ success: true ,message: 'Order placed'});
     } catch (error) {
         return NextResponse.json({ success: false, message: error.message });
     }
