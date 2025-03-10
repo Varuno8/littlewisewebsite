@@ -15,7 +15,7 @@ const OrderSummary = () => {
   const fetchUserAddresses = async () => {
     try {
       const token = await getToken()
-      const { data } = await axios.get('api/user/get-address', {headers: {Authorization: `Bearer ${token}`}})
+      const { data } = await axios.get('/api/user/get-address', {headers: {Authorization: `Bearer ${token}`}})
 
       if(data.success) {
         setUserAddresses(data.addresses)
@@ -51,12 +51,12 @@ const OrderSummary = () => {
       }
 
       const token = await getToken();
-      const { data } = await axios.post('api/order/create', { address: selectedAddress._id, items: cartItemsArray }, { headers: { Authorization: `Bearer ${token}` } });
+      const { data } = await axios.post('/api/order/create', { address: selectedAddress._id, items: cartItemsArray }, { headers: { Authorization: `Bearer ${token}` } });
 
       if (data.success) {
         toast.success(data.message);
           setCartItems({});
-          router.push('/orders-placed');
+          router.push('/order-placed');
         }else {
           toast.error(data.message);
       }}

@@ -10,6 +10,7 @@ Whether you're building SaaS platforms, e-commerce solutions, or real-time notif
 import { Inngest } from "inngest";
 import connectDB from "./db";
 import User from "@/models/user";
+import Order from "@/models/order";
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "littlewise" });
@@ -82,8 +83,8 @@ export const createUserOrder = inngest.createFunction(
     {
         event: 'order/created'
     },
-    async ({ event }) => {
-        const orders = EventSource.map((event) => {
+    async ({ events }) => {
+        const orders = events.map((event) => {
             return {
                 userId: event.data.userId,
                 items: event.data.items,
